@@ -4,9 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/normalize.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script type="text/javascript" src="./assets/js/app.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
+    <title>js Quiz</title>
+    
 </head>
-<body>
+<body class="bgi b-c b-nr m-m mnh-fv"> <!--background image-->
+    <section class="ai-c d-f df-fdc df-nw fs-l jc-c mt-l p-m" id="section"> <!--content wrapper-->
+        <ol class="v-h" id="scoresList">High Scores:
+            <li class="v-h" id="score1"></li>
+            <li class="v-h" id="score2"></li>
+            <li class="v-h" id="score3"></li>
+        </ol>
+        <div class="bgc-db bdr-a c-m fs-j p-s ta-c v-v" id="primaryTextBox">Welcome! This is a simple 6 question JavaScript Quiz. You have 60 seconds to complete 6 questions.</div>
+        <div class="bgc-db bdr-b c-dm fs-j p-s ta-c v-v" id="secondaryTextBox">Click the start button to begin! Good Luck!</div>
+        <div class="v-h" id="tertiaryTextBox"></div>
+        <button class="bdc-n bdr-a bgc-lp-fc bgc-fm-hv bgc-lm c-db c-dp-hv c-db-fc m-s p-s v-v" id="primaryBtn" onclick="highScores()">View High Scores</button>
+        <button class="bdc-n bdr-a bgc-m bgc-lp-fc bgc-fm-hv c-db c-dp-hv fs-j m-s p-s v-v" id="secondaryBtn" onclick="quizLoad()">Start Quiz!</button>
+        <button class="v-h" id="tertiaryBtn"></button>
+        
+        <!-- DOM writing will appear here-->
+    </section>
     
 </body>
 </html>
