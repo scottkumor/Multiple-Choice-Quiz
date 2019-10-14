@@ -12,8 +12,8 @@ var questions = [
   {
     title:
       "In the HTML document, what tag establishes the link to your JavaScript file?",
-    choices: ["<js>", "<script>", "<javascript>", "<app>"],
-    answer: "<script>"
+    choices: ["js", "script", "javascript", "app"],
+    answer: "script"
   },
   {
     title: "How do you create a function?",
@@ -44,143 +44,144 @@ var questions = [
     title: "How do you assign a variable a numerical value of 7?",
     choices: ["var = 7;", "var myVar = 7;", "var myVar: 7;", "myVar = 7;"],
     answer: "var myVar = 7;"
-  }
+  },
+  {
+    title: "Where is the correct place to place to insert JavaScript in the HTML?",
+    choices: ["the head", "the body", "the footer", "the head or the body"],
+    answer: "the head or the body"
+  },
+  {
+    title: "What is the correct syntax for referring to an external script called 'xxx.js'?",
+    choices: ["<script title=xxx.js>", "<script href=xxx.js>", "<script src=xxx.js>", "<script name=xxx.js>"],
+    answer: "<script src=xxx.js>"
+  },
+  {
+    title: "How do you write 'Hello World' in an alert box?",
+    choices: ["alert('Hello World')", "alertBox('Hello World')", "msg('Hello World')", "msgBox('Hello World')>"],
+    answer: "alert('Hello World')"
+  },
+  {
+    title: "How do you call a function named 'myFunction'?",
+    choices: ["call myFunction", "call function myFunction", "myFunction()", "call myFunction()"],
+    answer: "myFunction()"
+  },
+  {
+    title: "How to write an IF statement in JavaScript?",
+    choices: ["if (i = 5) {}", "if (i == 5) {}", "if i == 5 {}", "if (i == 5) then {}"],
+    answer: "if (i == 5) {}"
+  },
+  {
+    title: "How to write an IF statement in JavaScript?",
+    choices: ["if (i = 5) {}", "if (i == 5) {}", "if i == 5 {}", "if (i == 5) then {}"],
+    answer: "if (i == 5) {}"
+  }, 
 ];
 
+var questionAnswer = '';
+var questionNum = 0;
 var score = 0;
 var secondsLeft = 60;
-var timer = 60;
+var userGuess = '';
+var finalQuestion = questions.length - 1;
+var user = [];
+
+
+
+function scoreStore() {
+  
+  var userInput = document.getElementById('inputId');
+  user[user.length] = {
+    name: userInput.value,
+    value: score
+  }; 
+  localStorage.setItem("storage", JSON.stringify(user));
+};
+
+function renderScores() {
+ 
+var userHighScore = JSON.parse(localStorage.getItem("storage"));
+
+for (i=0; i<userHighScore.length; i++) {
+ 
+  var userName = userHighScore[i].name;
+  var userScore = userHighScore[i].value;
+  var writeListItem = document.createElement("li");
+
+  writeListItem.textContent = userName + ": " + userScore;
+  document.getElementById('scoresList').appendChild(writeListItem);
+  console.log(writeListItem);
+
+  primaryTextBox.textContent = "Your Score: " + userScore;
+};
+};
+
+
+function initialize() {
+  primaryBtn.innerHTML = "View High Scores";
+  primaryBtn.style.display = "block";
+  primaryBtn.setAttribute("onclick", "highScores()");
+
+  secondaryBtn.innerHTML = "Start Quiz!";
+  secondaryBtn.style.display = "block";
+  secondaryBtn.setAttribute("onclick", "quizLoad()");
+
+  primaryTextBox.innerHTML = "Welcome! This is a simple 6 question JavaScript Quiz. You have 60 seconds to complete as many questions as you can!";
+  primaryTextBox.style.display = "block";
+
+  secondaryTextBox.innerHTML = "Click the Start Button to begin! Good Luck!";
+  secondaryTextBox.style.display = "block";
+
+  tertiaryBtn.style.display = "none";
+  tertiaryTextBox.style.display = "none";
+
+  scoresList.style.display = "none";
+
+  inputId.style.display = "none";
+  inputBtn.style.display = "none";
+};
 
 function highScores() {
   primaryTextBox.innerHTML = "Inject Score Here";
-  primaryTextBox.setAttribute("class", "bgc-db bdr-a c-dm fs-j p-s ta-c v-v");
+  primaryTextBox.style.display = "block";
 
-  secondaryBtn.setAttribute("class", "v-h");
-  secondaryTextBox.setAttribute("class", "v-h");
+  secondaryBtn.style.display = "none";
+  secondaryTextBox.style.display = "none";
 
-  tertiaryBtn.setAttribute("class", "v-h");
-  tertiaryTextBox.style.display = "block";
+  tertiaryBtn.style.display = "none";
+  tertiaryTextBox.style.display = "none";
 
-  primaryBtn.setAttribute(
-    "class",
-    "bdc-n bdr-a bgc-lp-fc bgc-fm-hv bgc-lm c-db c-dp-hv c-db-fc m-s p-s v-v"
-  );
+  primaryBtn.style.display = "block";
   primaryBtn.setAttribute("id", "primaryBtn");
   primaryBtn.setAttribute("onclick", "initialize()");
   primaryBtn.innerHTML = "Return to Start";
 
-  scoresList.setAttribute("class", "bgc-db bdr-a c-fm fs-j lsp-i p-s ta-c v-v");
-  score1.setAttribute("class", "ta-c v-v");
-  score2.setAttribute("class", "ta-c v-v");
-  score3.setAttribute("class", "ta-c v-v");
-}
+  scoresList.style.display = "block";
 
-function initialize() {
-  primaryBtn.innerHTML = "View High Scores";
-  primaryBtn.setAttribute(
-    "class",
-    "bdc-n bdr-a bgc-lp-fc bgc-fm-hv bgc-lm c-db c-dp-hv c-db-fc m-s p-s v-v"
-  );
-  primaryBtn.setAttribute("onclick", "highScores()");
+  inputId.style.display = "block";
+  inputBtn.style.display = "block";
 
-  secondaryBtn.innerHTML = "Start Quiz!";
-  secondaryBtn.setAttribute(
-    "class",
-    "bdc-n bdr-a bgc-m bgc-lp-fc bgc-fm-hv c-db c-dp-hv fs-j m-s p-s v-v"
-  );
-  secondaryBtn.setAttribute("onclick", "quizLoad()");
+  renderScores();
 
-  primaryTextBox.innerHTML =
-    "Welcome! This is a simple 6 question JavaScript Quiz. You have 60 seconds to complete 6 questions.";
-  primaryTextBox.setAttribute("class", "bgc-db bdr-a c-dm fs-j p-s ta-c v-v");
+};
 
-  secondaryTextBox.innerHTML = "Click the Start Button to begin! Good Luck!";
-  secondaryTextBox.setAttribute("class", "bgc-db bdr-b c-dm fs-j p-s ta-c v-v");
+function grabValue(textContent) {
+  userGuess = textContent;
+};
 
-  tertiaryBtn.setAttribute("class", "v-h");
-  tertiaryTextBox.style.display = "none";
+function checkAnswer() {
 
-  scoresList.setAttribute("class", "v-h");
-  score1.setAttribute("class", "v-h");
-  score2.setAttribute("class", "v-h");
-  score3.setAttribute("class", "v-h");
-}
-
-function quizLoad() {
-  timerRunner();
-  var startQuestion = 0;
-
-  primaryBtn.setAttribute("class", "v-h");
-  secondaryBtn.setAttribute("class", "v-h");
-  primaryTextBox.innerHTML = "";
-  tertiaryTextBox.style.display = "block";
-  tertiaryTextBox.setAttribute(
-    "class",
-    "bgc-db bdr-a c-dm fs-l m-s p-m ta-c v-v"
-  );
-
-  secondaryTextBox.innerHTML = secondsLeft;
-
-  scoresList.setAttribute("class", "v-h");
-
-  function renderQuestion(index) {
-    return questions[index].title;
-  }
-
-  function renderChoices(index) {
-    tertiaryTextBox.innerHTML = "";
-
-    for (i = 0; i < questions[index].choices.length; i++) {
-      var choiceBtn = document.createElement("button");
-      tertiaryBtn.innerHTML = "Next Question";
-      tertiaryBtn.setAttribute(
-        "class",
-        "bdc-n bgc-dm bdr-a c-db fs-l m-s p-s ta-c v-v"
-      );
-      choiceBtn.setAttribute(
-        "class",
-        " bgc-fp bgc-lm-fc bgc-lp-hv c-dp c-db-hv fs-l ta-c v-v"
-      );
-      choiceBtn.setAttribute(
-         "id",
-         "choiceBtn"
-       );
-      choiceBtn.textContent = questions[index].choices[i];
-      tertiaryTextBox.appendChild(choiceBtn);
-    }
-    if (i > questions[index].choices.length) {
-      tertiaryTextBox.removeChild(choiceBtn);
-    }
-  }
-
-  tertiaryBtn.addEventListener("click", function() {
-    startQuestion++;
-    /* call redner question */
-    primaryTextBox.innerHTML = renderQuestion(startQuestion);
-    renderChoices(startQuestion);
-  });
-
-  // init
-  primaryTextBox.innerHTML = renderQuestion(startQuestion);
-  renderChoices(0);
-}
-
-function checkAnswer(choices) {
-   var score = 0;
-  if (document === questions[i].answer) {
+  if (userGuess === questionAnswer) {
     score++;
     console.log(score);
-    alert ('yay');
-  }
-  else if (choices !== questions[i].answer) {
-    // decrease 15 seconds of time
-    secondsLeft -= 15;
-    alert('nay');
-  }
-}
+  } 
+  else if (userGuess !== questionAnswer) {
+    // decrease 10 seconds of time
+    secondsLeft -= 10;
+  };
+};
 
 function timerRunner() {
-  var timer = setInterval(function() {
+  var timer = setInterval(function () {
     secondsLeft--;
     if (secondsLeft >= -2 && secondsLeft < 0) {
       secondaryTextBox.innerHTML = "TIME!";
@@ -188,6 +189,7 @@ function timerRunner() {
     } else if (secondsLeft < -2) {
       secondaryTextBox.innerHTML = "TIME!";
       highScores();
+      renderScores();
       clearInterval(timer);
       secondsLeft = 60;
       tertiaryTextBox.style.display = "none";
@@ -196,12 +198,56 @@ function timerRunner() {
     }
     return secondsLeft;
   }, 1000);
-}
+};
 
-// events left
-// choose answer, enter initials and submit to local storage and
-// writes it to the high score page *same as clicking high score link, clear high scores
-//high score page: find object in local storage, display it, parse object for screen, display parsed object in html
+function quizLoad() {
 
-//start quiz: vars ?'s, choices, and answers as strings in an array, key as an id storage maybe
-//var score
+  timerRunner();
+
+  primaryBtn.style.display = "none";
+  secondaryBtn.style.display = "none";
+  tertiaryTextBox.style.display = "block";
+  scoresList.style.display = "none";
+  primaryTextBox.innerHTML = "";
+  secondaryTextBox.innerHTML = secondsLeft;
+  inputId.style.display = "none";
+  inputBtn.style.display = "none";
+
+  function renderQuestion(index) {
+    questionAnswer = questions[index].answer;
+    return questions[index].title;
+  }
+
+  function renderChoices(index) {
+    tertiaryTextBox.innerHTML = "";
+
+    for (i = 0; i < questions[i].choices.length; i++) {
+      var choiceBtn = document.createElement("button");
+
+      choiceBtn.setAttribute("class", "bgc-fp bgc-lm-fc bgc-lp-hv c-dp c-db-hv fs-l ta-c");
+
+      choiceBtn.setAttribute("id", "choiceBtn");
+      choiceBtn.setAttribute("value", "choiceBtnValue");
+      choiceBtn.setAttribute("onclick", "grabValue(this.textContent)");
+
+      choiceBtn.textContent = questions[index].choices[i];
+      tertiaryTextBox.appendChild(choiceBtn);
+    };
+
+    tertiaryBtn.innerHTML = "Next Question";
+    tertiaryBtn.style.display = "block";
+  };
+
+  
+
+  tertiaryBtn.addEventListener("click", function () {
+    questionNum++;
+    /* call redner question */
+    primaryTextBox.innerHTML = renderQuestion(questionNum);
+    renderChoices(questionNum);
+  });
+
+  // init
+  primaryTextBox.innerHTML = renderQuestion(questionNum);
+  renderChoices(0);
+};

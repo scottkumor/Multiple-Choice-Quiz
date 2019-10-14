@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        
+    </div>
+    
+<button id="buttonID" value="clicked" onclick="grabValue(this.value)">button</button>
+
+<script>
+   userGuess = value;
+  var questions = [
+  {
+    title: "Commonly used data types DO NOT include:",
+    choices: ["strings", "booleans", "alerts", "numbers"],
+    answer: "alerts"
+  }];
+
+function grabValue(value) {
+ console.log(value);
+  };
+
+  function checkAnswer(userGuess) {
+var score = 0;
+ if ( userGuess === questions[i].answer) {
+   score++;
+   console.log(score);
+   alert ('yay');
+ }
+ else if (userGuess !== questions[i].answer) {
+   // decrease 15 seconds of time
+   secondsLeft -= 15;
+   alert('nay');
+   console.log(userGuess);
+ };
+ 
+};
+
+</script>
+
+</body>
+</html>
